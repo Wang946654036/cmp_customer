@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('delingsdk_20190417_release.aar'))

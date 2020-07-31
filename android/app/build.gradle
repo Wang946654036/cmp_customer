@@ -1,0 +1,157 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply from: 'mobsdk.gradle' //shareSDK的
+
+def keystorePropertiesFile = rootProject.file("key.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "http://mvn.mob.com/android"
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.mob.sdk:MobSDK:+'
+    }
+}
+
+android {
+    compileSdkVersion 28
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.cmhk.uhome"
+        minSdkVersion 19
+        targetSdkVersion 28
+//        versionCode flutterVersionCode.toInteger()
+//        versionName flutterVersionName
+//        versionCode 227 //227
+//        versionName "demo2.1.54"
+        versionCode 186 //186
+        versionName "2.1.5"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        //    /// 39175294bec711cb54367435 招商账号IOS体验版
+        //    ///741ddd31e7d7e099295391c0 招商账号
+        //    ///836845276e457c36d8ef0799 自己账号
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "741ddd31e7d7e099295391c0", // NOTE: JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+//keytool -v -list -keystore cmhk.keystore
+    signingConfigs {
+        debug {
+        keyAlias keystoreProperties['keyAlias']
+        keyPassword keystoreProperties['keyPassword']
+        storeFile file(keystoreProperties['storeFile'])
+        storePassword keystoreProperties['storePassword']
+//            v1signingenabled true
+//            v2signingenabled true
+    }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+//            v1signingenabled true
+//            v2signingenabled true
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+            ndk {
+                moduleName "app"
+                //设置支持的SO库架构
+                abiFilters "armeabi-v7a" //, "x86", "mips","armeabi"
+            }
+        }
+        debug {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+//            ndk {
+//                moduleName "app"
+//                //设置支持的SO库架构
+//                abiFilters "armeabi-v7a" //, "x86", "mips","armeabi"
+//            }
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'   // aar目录
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation("androidx.annotation:annotation:1.0.1")
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation(name: 'delingsdk_20190417_release', ext: 'aar')
+    implementation 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
+    implementation 'io.sentry:sentry-android:1.7.27'
+    implementation files('libs/lopesdk.jar')
+//    implementation(name: 'lopesdk', ext: 'jar')
+
+// this dependency is not required if you are already using your own
+// slf4j implementation
+    implementation 'org.slf4j:slf4j-nop:1.7.25'
+
+}
+
+

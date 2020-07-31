@@ -1,0 +1,147 @@
+name: cmp_customer
+description: 招商物业——客户版本
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# Read more about versioning at semver.org.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  scoped_model: ^1.0.1 #状态管理
+  tip_dialog: ^2.0.1 #提示框
+  flutter_screenutil: ^0.6.0 #屏幕和控件高宽设置
+  json_annotation: ^3.0.1 #json相关
+  shared_preferences: ^0.5.4+1
+  dio: ^2.2.2 #网络请求相关
+  url_launcher: ^5.0.2
+  #  ace_bottom_navigation_bar: ^0.0.3 #底部导航栏，中间按钮突起效果
+#  image_picker: ^0.6.0+1 #图片选择
+  image_picker: ^0.6.1+8 #图片选择
+#  carousel_slider: ^1.3.0 #图片滑动查看
+  #  image_share: ^0.0.2 #分享
+  share_extend: ^1.0.8 #分享
+  path_provider: ^1.6.7 #文件共享
+  flutter_sound: ^1.4.3 #音频
+  flutter_swiper: ^1.1.6 #轮播图
+  toast: ^0.1.4
+#  flutter_webview_plugin: ^0.3.5 #调用webview（修改控件源代码，兼容支付宝和微信支付功能）
+#  flutter_webview_plugin:
+#    path: /Users/chinchin/AndroidStudioProjects/my_widget/flutter_webview_plugin
+  flutter_webview_plugin:  #调用webview（修改控件源代码，兼容支付宝和微信支付功能）
+    git:
+      url: https://github.com/didyqian/flutter_webview_plugin.git
+      ref: master
+#  flutter_webview_plugin:
+#    git: https://github.com/didyqian/flutter_webview_plugin.git
+#  fluwx: ^1.0.3 #微信
+  permission_handler: ^3.3.0 #权限
+  fluttertoast: ^4.0.1
+  flutter_picker: ^1.0.15 #联动选择器
+  flutter_slidable: ^0.4.9 #滑动删除等按钮
+#  photo: ^0.3.3 #图片选择器
+#  audioplayer: ^0.5.2 #音频播放
+  audioplayers: ^0.15.1 #新音频播放
+  binding_helper: ^0.0.2 #计算控件尺寸
+  sticky_headers: ^0.1.8 #粘性头部`
+  flutter_html: ^0.9.9 #显示html页面
+  cached_network_image: ^2.1.0+1  #图片加载有缓存和加载失败
+  flutter_image_compress: ^0.6.3 #图片压缩
+  jpush_flutter: 0.1.0 #极光推送（官方）
+  package_info: ^0.4.0+3 #版本信息
+  qr_flutter: ^2.0.0+51 #二维码生成
+  install_plugin: ^2.0.1 #android安装应用， ios跳转到app store
+  sentry: ^2.2.0 #异常信息收集
+  device_info: ^0.4.0+2 #设备信息
+  photo_manager: ^0.3.4
+  file_picker: ^1.3.8 #文件选择
+  open_file: ^2.0.3 #打开文件（修改控件源代码，打开安装apk时增加代码，安装完成后才有“完成”和“打开”界面）
+  sharesdk_plugin: ^1.2.1 #分享控件
+  photo_view: ^0.9.0
+#  flutter_drag_scale: #图片放大缩小拖拽
+#    git: https://github.com/LiuC520/flutter_drag_scale.git
+#  flutter_easyrefresh: ^2.0.4 #页面加载（下拉刷新、上拉加载更多等效果）
+#  flutter_spinkit: ^4.0.0 #加载中效果
+#  meta: ^1.1.7
+  signature: ^2.0.1 #签名画图
+  flutter_fai_webview:
+    git:
+      url: https://github.com/zhaolongs/Flutter_Fai_Webview.git
+      ref: master
+
+  azlistview: ^0.1.0 #城市列表
+  lpinyin: ^1.0.9 #汉字转拼音
+  amap_base_location: ^0.4.0+2 #高德定位
+  flutter_advanced_networkimage: ^0.7.0 #图片加载有缓存
+  flutter_spinkit: ^4.1.2+1 #加载动画
+  flutter_bcrypt: ^1.0.5 #bcrypt加密（用于密码登录加密） （修改源代码android的加盐版本，2b改成2a）
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^1.9.0 #flutter packages pub run build_runner watch --delete-conflicting-outputs
+  json_serializable: ^3.3.0
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+  - assets/images/
+  - assets/images/service/
+  - assets/images/home/
+  - assets/images/2.0x/
+  - assets/images/3.0x/
+  - assets/files/
+
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.io/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.io/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+  - family: iconfont
+    fonts:
+    - asset: assets/fonts/iconfont.ttf
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.io/custom-fonts/#from-packages
